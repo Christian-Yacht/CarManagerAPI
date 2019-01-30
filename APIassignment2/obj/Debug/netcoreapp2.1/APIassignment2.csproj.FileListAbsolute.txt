@@ -1,0 +1,14 @@
+C:\Users\chris\source\repos\APIassignment2\APIassignment2\obj\Debug\netcoreapp2.1\APIassignment2.csproj.CoreCompileInputs.cache
+C:\Users\chris\source\repos\APIassignment2\APIassignment2\obj\Debug\netcoreapp2.1\APIassignment2.RazorAssemblyInfo.cache
+C:\Users\chris\source\repos\APIassignment2\APIassignment2\obj\Debug\netcoreapp2.1\APIassignment2.RazorAssemblyInfo.cs
+C:\Users\chris\source\repos\APIassignment2\APIassignment2\obj\Debug\netcoreapp2.1\APIassignment2.AssemblyInfoInputs.cache
+C:\Users\chris\source\repos\APIassignment2\APIassignment2\obj\Debug\netcoreapp2.1\APIassignment2.AssemblyInfo.cs
+C:\Users\chris\source\repos\APIassignment2\APIassignment2\bin\Debug\netcoreapp2.1\APIassignment2.deps.json
+C:\Users\chris\source\repos\APIassignment2\APIassignment2\bin\Debug\netcoreapp2.1\APIassignment2.runtimeconfig.json
+C:\Users\chris\source\repos\APIassignment2\APIassignment2\bin\Debug\netcoreapp2.1\APIassignment2.runtimeconfig.dev.json
+C:\Users\chris\source\repos\APIassignment2\APIassignment2\bin\Debug\netcoreapp2.1\APIassignment2.dll
+C:\Users\chris\source\repos\APIassignment2\APIassignment2\bin\Debug\netcoreapp2.1\APIassignment2.pdb
+C:\Users\chris\source\repos\APIassignment2\APIassignment2\obj\Debug\netcoreapp2.1\APIassignment2.RazorTargetAssemblyInfo.cache
+C:\Users\chris\source\repos\APIassignment2\APIassignment2\obj\Debug\netcoreapp2.1\APIassignment2.dll
+C:\Users\chris\source\repos\APIassignment2\APIassignment2\obj\Debug\netcoreapp2.1\APIassignment2.pdb
+C:\Users\chris\source\repos\APIassignment2\APIassignment2\obj\Debug\netcoreapp2.1\APIassignment2.csprojAssemblyReference.cache
