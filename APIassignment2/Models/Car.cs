@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace APIassignment2.Models
 {
-    public class Car
+    public class Car : BaseDomain<int>
     {
-        [Key]
-        public int Id { get; set; }
         public string Make { get; set; }
         public string Model { get; set; }
         public string Description { get; set; }

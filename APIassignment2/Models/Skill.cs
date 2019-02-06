@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace APIassignment2.Models
 {
-    public class Skill
+    public class Skill : BaseDomain<int>
     {
-        [Key]
         public string SkillTitle { get; set; }
         public string Description { get; set; }
         public ICollection<SkillsProjects> SkillsProjects { get; set; }

@@ -38,6 +38,7 @@ namespace APIassignment2
             services.AddSwaggerDocument();
 
             //services.AddTransient<IProject, Project>();
+            //services.AddTransient<IProject>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

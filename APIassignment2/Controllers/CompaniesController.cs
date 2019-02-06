@@ -42,6 +42,10 @@ namespace APIassignment2.Controllers
         public IEnumerable<Car> GetOrderedCarsByCompany(string CompanyName)
         {
             return _context.Cars.Where(x => CompanyName == x.CarCompanyName).OrderBy(Car => Car.Make);
+            
+            // OrderedCars = ^^
+            // return OrderedCars.ToList().GetRange(x, x + 19);
+
             // _context.Car.Make
         }
 

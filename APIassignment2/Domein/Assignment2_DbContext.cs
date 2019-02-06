@@ -14,6 +14,12 @@ namespace APIassignment2.Domein
         public DbSet<Car> Cars { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Company> Companies { get; set; }
+        public DbSet<Skill> Skills { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<UsersProjects> UsersProjects { get; set; }
+        public DbSet<UserSkills> UserSkills { get; set; }
+        public DbSet<SkillsProjects> SkillsProjects { get; set; }
+
 
         // instance of DbContext : for options, use options of base class
         public Assignment2_DbContext(DbContextOptions<Assignment2_DbContext> options) 

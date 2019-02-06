@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace APIassignment2.Migrations
 {
-    public partial class NewMigraton : Migration
+    public partial class NewMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,7 +11,9 @@ namespace APIassignment2.Migrations
                 name: "Companies",
                 columns: table => new
                 {
-                    Name = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Mission = table.Column<string>(nullable: true),
                     Strategy = table.Column<string>(nullable: true),
@@ -20,38 +22,44 @@ namespace APIassignment2.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Companies", x => x.Name);
+                    table.PrimaryKey("PK_Companies", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Project",
                 columns: table => new
                 {
-                    ProjectTitle = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ProjectTitle = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Project", x => x.ProjectTitle);
+                    table.PrimaryKey("PK_Project", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Skill",
                 columns: table => new
                 {
-                    SkillTitle = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    SkillTitle = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Skill", x => x.SkillTitle);
+                    table.PrimaryKey("PK_Skill", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
-                    UserName = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     Age = table.Column<int>(nullable: false),
@@ -61,7 +69,7 @@ namespace APIassignment2.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.UserName);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -71,22 +79,24 @@ namespace APIassignment2.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ProjectTitle = table.Column<string>(nullable: true),
-                    SkillTitle = table.Column<string>(nullable: true)
+                    ProjectId = table.Column<int>(nullable: true),
+                    SkillTitle = table.Column<string>(nullable: true),
+                    SkillId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SkillsProjects", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SkillsProjects_Project_ProjectTitle",
-                        column: x => x.ProjectTitle,
+                        name: "FK_SkillsProjects_Project_ProjectId",
+                        column: x => x.ProjectId,
                         principalTable: "Project",
-                        principalColumn: "ProjectTitle",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_SkillsProjects_Skill_SkillTitle",
-                        column: x => x.SkillTitle,
+                        name: "FK_SkillsProjects_Skill_SkillId",
+                        column: x => x.SkillId,
                         principalTable: "Skill",
-                        principalColumn: "SkillTitle",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -101,24 +111,25 @@ namespace APIassignment2.Migrations
                     Description = table.Column<string>(nullable: true),
                     Range = table.Column<double>(nullable: false),
                     MileAge = table.Column<double>(nullable: false),
+                    CarCompanyId = table.Column<int>(nullable: true),
                     CarCompanyName = table.Column<string>(nullable: true),
-                    CarUserUserName = table.Column<string>(nullable: true),
-                    CarUserName = table.Column<string>(nullable: true)
+                    CarUserId = table.Column<int>(nullable: true),
+                    CarUserUserName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cars", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Cars_Companies_CarCompanyName",
-                        column: x => x.CarCompanyName,
+                        name: "FK_Cars_Companies_CarCompanyId",
+                        column: x => x.CarCompanyId,
                         principalTable: "Companies",
-                        principalColumn: "Name",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Cars_Users_CarUserUserName",
-                        column: x => x.CarUserUserName,
+                        name: "FK_Cars_Users_CarUserId",
+                        column: x => x.CarUserId,
                         principalTable: "Users",
-                        principalColumn: "UserName",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -129,22 +140,24 @@ namespace APIassignment2.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserName = table.Column<string>(nullable: true),
-                    SkillTitle = table.Column<string>(nullable: true)
+                    UserId = table.Column<int>(nullable: true),
+                    SkillTitle = table.Column<string>(nullable: true),
+                    SkillId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserSkills", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserSkills_Skill_SkillTitle",
-                        column: x => x.SkillTitle,
+                        name: "FK_UserSkills_Skill_SkillId",
+                        column: x => x.SkillId,
                         principalTable: "Skill",
-                        principalColumn: "SkillTitle",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_UserSkills_Users_UserName",
-                        column: x => x.UserName,
+                        name: "FK_UserSkills_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "UserName",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -155,64 +168,66 @@ namespace APIassignment2.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserName = table.Column<string>(nullable: true),
-                    ProjectTitle = table.Column<string>(nullable: true)
+                    UserId = table.Column<int>(nullable: true),
+                    ProjectTitle = table.Column<string>(nullable: true),
+                    ProjectId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UsersProjects", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UsersProjects_Project_ProjectTitle",
-                        column: x => x.ProjectTitle,
+                        name: "FK_UsersProjects_Project_ProjectId",
+                        column: x => x.ProjectId,
                         principalTable: "Project",
-                        principalColumn: "ProjectTitle",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_UsersProjects_Users_UserName",
-                        column: x => x.UserName,
+                        name: "FK_UsersProjects_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "UserName",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cars_CarCompanyName",
+                name: "IX_Cars_CarCompanyId",
                 table: "Cars",
-                column: "CarCompanyName");
+                column: "CarCompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cars_CarUserUserName",
+                name: "IX_Cars_CarUserId",
                 table: "Cars",
-                column: "CarUserUserName");
+                column: "CarUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SkillsProjects_ProjectTitle",
+                name: "IX_SkillsProjects_ProjectId",
                 table: "SkillsProjects",
-                column: "ProjectTitle");
+                column: "ProjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SkillsProjects_SkillTitle",
+                name: "IX_SkillsProjects_SkillId",
                 table: "SkillsProjects",
-                column: "SkillTitle");
+                column: "SkillId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserSkills_SkillTitle",
+                name: "IX_UserSkills_SkillId",
                 table: "UserSkills",
-                column: "SkillTitle");
+                column: "SkillId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserSkills_UserName",
+                name: "IX_UserSkills_UserId",
                 table: "UserSkills",
-                column: "UserName");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UsersProjects_ProjectTitle",
+                name: "IX_UsersProjects_ProjectId",
                 table: "UsersProjects",
-                column: "ProjectTitle");
+                column: "ProjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UsersProjects_UserName",
+                name: "IX_UsersProjects_UserId",
                 table: "UsersProjects",
-                column: "UserName");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace APIassignment2.Models
 {
-    public class Company
+    public class Company : BaseDomain<int>
     {
-        [Key]
         public string Name { get; set; }
         public string Description { get; set; }
         public string Mission { get; set; }

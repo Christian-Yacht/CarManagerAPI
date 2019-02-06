@@ -12,6 +12,7 @@ namespace MVC_API.Controllers
 {
     public class CarsController : Controller
     {
+
         private readonly Assignment2_DbContext _context;
 
         public CarsController(Assignment2_DbContext context)

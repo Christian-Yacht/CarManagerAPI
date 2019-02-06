@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace APIassignment2.Models
 {
-    public class User
+    public class User : BaseDomain<int>
     {
-        [Key]
         public string UserName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
