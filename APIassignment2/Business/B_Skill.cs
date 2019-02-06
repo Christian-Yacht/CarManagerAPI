@@ -11,36 +11,36 @@ using Microsoft.EntityFrameworkCore;
 
 namespace APIassignment2.Business
 {
-    public class B_Project : Processable<Project, int>, IProcessable<Project>
+    public class B_Skill : Processable<Skill, int>, IProcessable<Skill>
     {
 
-        public B_Project(Assignment2_DbContext context) : base(context)
+        public B_Skill(Assignment2_DbContext context) : base(context)
         {
-        } 
-
-        public Task AddProject(Project project)
-        {
-            return this.AddData(project);
         }
 
-        public Task<Project> DeleteProject(int id)
+        public Task AddSkill(Skill Skill)
+        {
+            return this.AddData(Skill);
+        }
+
+        public Task<Skill> DeleteSkill(int id)
         {
             return this.DeleteData(id);
         }
 
-        public IEnumerable<Project> GetProject()
+        public IEnumerable<Skill> GetSkill()
         {
             return this.GetData();
         }
 
-        public Task<Project> GetProject(int id)
+        public Task<Skill> GetSkill(int id)
         {
             return this.GetDataById(id);
         }
 
-        public Task UpdateProject(int id, Project project)
+        public Task UpdateSkill(int id, Skill Skill)
         {
-            return this.UpdateData(id, project);
+            return this.UpdateData(id, Skill);
         }
     }
 }

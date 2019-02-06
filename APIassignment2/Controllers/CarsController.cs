@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using APIassignment2.Domein;
 using APIassignment2.Models;
+using APIassignment2.Business;
+using APIassignment2.Interfaces;
 
 namespace APIassignment2.Controllers
 {
@@ -14,113 +16,46 @@ namespace APIassignment2.Controllers
     [ApiController]
     public class CarsController : ControllerBase
     {
-        private readonly Assignment2_DbContext _context;
+        private readonly IProcessable<Car> _processable;
 
-        public CarsController(Assignment2_DbContext context)
+        public CarsController(IProcessable<Car> processable)
         {
-            _context = context;
+            _processable = processable;
         }
 
         // GET: api/Cars
         [HttpGet]
         public IEnumerable<Car> GetCars()
         {
-            return _context.Cars;
+            return _processable.GetData();
         }
 
         // GET: api/Cars/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCar([FromRoute] int id)
+        public Task<Car> GetCarsById(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var car = await _context.Cars.FindAsync(id);
-
-            if (car == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(car);
+            return _processable.GetDataById(id);
         }
 
-        // PUT: api/Cars/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCar([FromRoute] int id, [FromBody] Car car)
+        // ADD: api/Cars/5
+        [HttpPut]
+        public Task AddCar(Car car)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != car.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(car).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CarExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return _processable.AddData(car);
         }
 
-        // POST: api/Cars
+        // UPDATE: api/Cars
         [HttpPost]
-        public async Task<IActionResult> PostCar([FromBody] Car car)
+        public Task UpdateCar(int id, Car car)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            _context.Cars.Add(car);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCar", new { id = car.Id }, car);
+            return _processable.UpdateData(id, car);
         }
 
         // DELETE: api/Cars/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCar([FromRoute] int id)
+        [HttpDelete]
+        public Task<Car> DeleteCar(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var car = await _context.Cars.FindAsync(id);
-            if (car == null)
-            {
-                return NotFound();
-            }
-
-            _context.Cars.Remove(car);
-            await _context.SaveChangesAsync();
-
-            return Ok(car);
-        }
-
-        private bool CarExists(int id)
-        {
-            return _context.Cars.Any(e => e.Id == id);
+            return _processable.DeleteData(id);
         }
     }
 }

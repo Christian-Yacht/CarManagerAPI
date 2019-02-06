@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using APIassignment2.Domein;
 using APIassignment2.Models;
+using APIassignment2.Business;
+using APIassignment2.Interfaces;
 
 namespace APIassignment2.Controllers
 {
@@ -14,113 +16,46 @@ namespace APIassignment2.Controllers
     [ApiController]
     public class ProjectsController : ControllerBase
     {
-        private readonly Assignment2_DbContext _context;
+        private readonly IProcessable<Project> _processable;
 
-        public ProjectsController(Assignment2_DbContext context)
+        public ProjectsController(IProcessable<Project> processable)
         {
-            _context = context;
+            _processable = processable;
         }
 
         // GET: api/Projects
         [HttpGet]
-        public IEnumerable<Project> GetProject()
+        public IEnumerable<Project> GetProjects()
         {
-            return _context.Project;
+            return _processable.GetData();
         }
 
         // GET: api/Projects/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProject([FromRoute] string id)
+        public Task<Project> GetProjectsById(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var project = await _context.Project.FindAsync(id);
-
-            if (project == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(project);
+            return _processable.GetDataById(id);
         }
 
-        // PUT: api/Projects/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutProject([FromRoute] string id, [FromBody] Project project)
+        // ADD: api/Projects/5
+        [HttpPut]
+        public Task AddProject(Project Project)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != project.ProjectTitle)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(project).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProjectExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return _processable.AddData(Project);
         }
 
-        // POST: api/Projects
+        // UPDATE: api/Projects
         [HttpPost]
-        public async Task<IActionResult> PostProject([FromBody] Project project)
+        public Task UpdateProject(int id, Project Project)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            _context.Project.Add(project);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetProject", new { id = project.ProjectTitle }, project);
+            return _processable.UpdateData(id, Project);
         }
 
         // DELETE: api/Projects/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProject([FromRoute] string id)
+        [HttpDelete]
+        public Task<Project> DeleteProject(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var project = await _context.Project.FindAsync(id);
-            if (project == null)
-            {
-                return NotFound();
-            }
-
-            _context.Project.Remove(project);
-            await _context.SaveChangesAsync();
-
-            return Ok(project);
-        }
-
-        private bool ProjectExists(string id)
-        {
-            return _context.Project.Any(e => e.ProjectTitle == id);
+            return _processable.DeleteData(id);
         }
     }
 }

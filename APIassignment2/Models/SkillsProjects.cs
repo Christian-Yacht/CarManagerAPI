@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace APIassignment2.Models
 {
-    public class SkillsProjects
+    public class SkillsProjects : BaseDomain<int>
     {
-        [Key]
-        public int Id { get; set; }
-        public string ProjectTitle { get; set; }
+        public int ProjectId { get; set; }
         public Project Project { get; set; }
-        public string SkillTitle { get; set; }
+        public int SkillId { get; set; }
         public Skill Skill { get; set; }
     }
 }

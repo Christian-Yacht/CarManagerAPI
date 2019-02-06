@@ -7754,11 +7754,12 @@
       ]
     },
     "Newtonsoft.Json/11.0.2": {
-      "sha512": "IvJe1pj7JHEsP8B8J8DwlMEx8UInrs/x+9oVY+oCD13jpLu4JbJU2WCIsMRn5C4yW9+DgkaO8uiVE5VHKjpmdQ==",
+      "sha512": "znZGbws7E4BA9jxNZ7FuiIRI3C9hrgatVQSTKhIYZYNOud4M5VfGlTYi6RdYO5sQrebFuF/g9UEV3hOxDMXF6Q==",
       "type": "package",
       "path": "newtonsoft.json/11.0.2",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "LICENSE.md",
         "lib/net20/Newtonsoft.Json.dll",
         "lib/net20/Newtonsoft.Json.xml",
@@ -9431,11 +9432,12 @@
       ]
     },
     "System.Interactive.Async/3.1.1": {
-      "sha512": "hZccYiIE5RS1/J9Tb/BNtosAGVggdlsJm4Ojdu+gDV0p4AIi+LUfUogMKkRacljQEJd2AG6vYzvcjhQFkqoZmw==",
+      "sha512": "x9y2omkjEudKbIVuhUzeWw7ZlouEzpk4W98woCEq1lq9gJxERBKRKDTHF5JPEws9E0f4/Uei/2vLxEy1IrfmMg==",
       "type": "package",
       "path": "system.interactive.async/3.1.1",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "lib/net45/System.Interactive.Async.dll",
         "lib/net45/System.Interactive.Async.xml",
         "lib/net46/System.Interactive.Async.dll",

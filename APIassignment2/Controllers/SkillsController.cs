@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using APIassignment2.Domein;
 using APIassignment2.Models;
+using APIassignment2.Business;
+using APIassignment2.Interfaces;
 
 namespace APIassignment2.Controllers
 {
@@ -14,113 +16,46 @@ namespace APIassignment2.Controllers
     [ApiController]
     public class SkillsController : ControllerBase
     {
-        private readonly Assignment2_DbContext _context;
+        private readonly IProcessable<Skill> _processable;
 
-        public SkillsController(Assignment2_DbContext context)
+        public SkillsController(IProcessable<Skill> processable)
         {
-            _context = context;
+            _processable = processable;
         }
 
         // GET: api/Skills
         [HttpGet]
-        public IEnumerable<Skill> GetSkill()
+        public IEnumerable<Skill> GetSkills()
         {
-            return _context.Skill;
+            return _processable.GetData();
         }
 
         // GET: api/Skills/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetSkill([FromRoute] string id)
+        public Task<Skill> GetSkillsById(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var skill = await _context.Skill.FindAsync(id);
-
-            if (skill == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(skill);
+            return _processable.GetDataById(id);
         }
 
-        // PUT: api/Skills/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutSkill([FromRoute] string id, [FromBody] Skill skill)
+        // ADD: api/Skills/5
+        [HttpPut]
+        public Task AddSkill(Skill Skill)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != skill.SkillTitle)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(skill).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SkillExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return _processable.AddData(Skill);
         }
 
-        // POST: api/Skills
+        // UPDATE: api/Skills
         [HttpPost]
-        public async Task<IActionResult> PostSkill([FromBody] Skill skill)
+        public Task UpdateSkill(int id, Skill Skill)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            _context.Skill.Add(skill);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetSkill", new { id = skill.SkillTitle }, skill);
+            return _processable.UpdateData(id, Skill);
         }
 
         // DELETE: api/Skills/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSkill([FromRoute] string id)
+        [HttpDelete]
+        public Task<Skill> DeleteSkill(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var skill = await _context.Skill.FindAsync(id);
-            if (skill == null)
-            {
-                return NotFound();
-            }
-
-            _context.Skill.Remove(skill);
-            await _context.SaveChangesAsync();
-
-            return Ok(skill);
-        }
-
-        private bool SkillExists(string id)
-        {
-            return _context.Skill.Any(e => e.SkillTitle == id);
+            return _processable.DeleteData(id);
         }
     }
 }

@@ -78,10 +78,8 @@ namespace APIassignment2.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ProjectTitle = table.Column<string>(nullable: true),
-                    ProjectId = table.Column<int>(nullable: true),
-                    SkillTitle = table.Column<string>(nullable: true),
-                    SkillId = table.Column<int>(nullable: true)
+                    ProjectId = table.Column<int>(nullable: false),
+                    SkillId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -91,13 +89,13 @@ namespace APIassignment2.Migrations
                         column: x => x.ProjectId,
                         principalTable: "Project",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_SkillsProjects_Skill_SkillId",
                         column: x => x.SkillId,
                         principalTable: "Skill",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -111,10 +109,8 @@ namespace APIassignment2.Migrations
                     Description = table.Column<string>(nullable: true),
                     Range = table.Column<double>(nullable: false),
                     MileAge = table.Column<double>(nullable: false),
-                    CarCompanyId = table.Column<int>(nullable: true),
-                    CarCompanyName = table.Column<string>(nullable: true),
-                    CarUserId = table.Column<int>(nullable: true),
-                    CarUserUserName = table.Column<string>(nullable: true)
+                    CarCompanyId = table.Column<int>(nullable: false),
+                    CarUserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -124,13 +120,13 @@ namespace APIassignment2.Migrations
                         column: x => x.CarCompanyId,
                         principalTable: "Companies",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Cars_Users_CarUserId",
                         column: x => x.CarUserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -139,10 +135,8 @@ namespace APIassignment2.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserName = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: true),
-                    SkillTitle = table.Column<string>(nullable: true),
-                    SkillId = table.Column<int>(nullable: true)
+                    UserId = table.Column<int>(nullable: false),
+                    SkillId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -152,13 +146,13 @@ namespace APIassignment2.Migrations
                         column: x => x.SkillId,
                         principalTable: "Skill",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserSkills_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -167,10 +161,8 @@ namespace APIassignment2.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserName = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: true),
-                    ProjectTitle = table.Column<string>(nullable: true),
-                    ProjectId = table.Column<int>(nullable: true)
+                    UserId = table.Column<int>(nullable: false),
+                    ProjectId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -180,13 +172,13 @@ namespace APIassignment2.Migrations
                         column: x => x.ProjectId,
                         principalTable: "Project",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UsersProjects_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

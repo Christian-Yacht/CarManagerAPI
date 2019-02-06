@@ -15,9 +15,9 @@ namespace APIassignment2.Models
         public double MileAge { get; set; }
 
         public Company CarCompany { get; set; }
-        public string CarCompanyName { get; set; }
+        public int CarCompanyId { get; set; }
         public User CarUser { get; set; }
-        public string CarUserUserName { get; set; }
+        public int CarUserId { get; set; }
 
         public Car()
         {

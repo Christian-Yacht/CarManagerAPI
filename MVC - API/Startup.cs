@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using APIassignment2.Business;
 using APIassignment2.Domein;
+using APIassignment2.Interfaces;
+using APIassignment2.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -35,6 +38,12 @@ namespace MVC___API
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddTransient<IProcessable<Project>, B_Project>();
+            services.AddTransient<IProcessable<Car>, B_Car>();
+            services.AddTransient<IProcessable<Company>, B_Company>();
+            services.AddTransient<IProcessable<Skill>, B_Skill>();
+            services.AddTransient<IProcessable<User>, B_User>();
 
             // configuratie DbContext
             services.AddDbContext<Assignment2_DbContext>(options =>
