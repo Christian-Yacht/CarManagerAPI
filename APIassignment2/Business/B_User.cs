@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using APIassignment2.Exceptions;
 
 namespace APIassignment2.Business
 {
@@ -33,9 +34,21 @@ namespace APIassignment2.Business
             return this.GetData();
         }
 
-        public Task<User> GetUser(int id)
+        // override zodat je bij het ophalen van Users ook de one-to-many lijsten (cars) mee krijgt
+        public async override Task<User> GetDataById(int id)
         {
-            return this.GetDataById(id);
+            var data = await _context.Set<User>().Include(x => x.Cars).Include(x => x.UserSkills).Include(x => x.UsersProjects).FirstOrDefaultAsync(x => x.Id.Equals(id));
+
+            if (data == null)
+            {
+                throw new DataNotFoundException();
+            }
+
+            return data;
+
+
+            //return this.GetDataById(id);
+
         }
 
         public Task UpdateUser(int id, User User)

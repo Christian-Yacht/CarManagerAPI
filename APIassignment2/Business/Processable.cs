@@ -45,7 +45,7 @@ namespace APIassignment2.Business
             return _context.Set<T>();
         }
 
-        public async Task<T> GetDataById(int id)
+        public virtual async Task<T> GetDataById(int id)
         {
             var data = await _context.Set<T>().FindAsync(id);
 
@@ -59,6 +59,8 @@ namespace APIassignment2.Business
             // idris' methode:
             // return await _context.Set<T>().FirstOrDefaultAsync(x => x.Id.Equals(id));
         }
+
+        
 
         public async Task UpdateData(int id, T t)
         {
