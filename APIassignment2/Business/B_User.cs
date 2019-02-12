@@ -35,9 +35,9 @@ namespace APIassignment2.Business
         }
 
         // override zodat je bij het ophalen van Users ook de one-to-many lijsten (cars) mee krijgt
-        public async override Task<User> GetDataById(int id)
+        public override async Task<User> GetDataById(int id)
         {
-            var data = await _context.Set<User>().Include(x => x.Cars).Include(x => x.UserSkills).Include(x => x.UsersProjects).FirstOrDefaultAsync(x => x.Id.Equals(id));
+            var data = await _context.Set<User>().Include(x => x.Cars).FirstOrDefaultAsync(x => x.Id.Equals(id));
 
             if (data == null)
             {
@@ -45,7 +45,7 @@ namespace APIassignment2.Business
             }
 
             return data;
-
+            //return await base._context.Set<User>().Include(x => x.Cars).Include(x => x.UserSkills).FirstOrDefaultAsync(x => x.Id == id);
 
             //return this.GetDataById(id);
 
