@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using APIassignment2.Exceptions;
 
 namespace APIassignment2.Business
 {
@@ -33,9 +34,18 @@ namespace APIassignment2.Business
             return this.GetData();
         }
 
-        public Task<Skill> GetSkill(int id)
+        public async override Task<Skill> GetDataById(int id)
         {
-            return this.GetDataById(id);
+            var data = await _context.Set<Skill>().Include(x => x.SkillsProjects).Include(x => x.UserSkills).FirstOrDefaultAsync(x => x.Id.Equals(id));
+
+            if(data == null)
+            {
+                throw new DataNotFoundException();
+            }
+
+            return data;
+
+            //return this.GetDataById(id);
         }
 
         public Task UpdateSkill(int id, Skill Skill)

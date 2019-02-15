@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using APIassignment2.Exceptions;
 
 namespace APIassignment2.Business
 {
@@ -33,9 +34,17 @@ namespace APIassignment2.Business
             return this.GetData();
         }
 
-        public Task<Car> GetCar(int id)
+        public async override Task<Car> GetDataById(int id)
         {
-            return this.GetDataById(id);
+            var data = await _context.Set<Car>().Include(x => x.CarCompany).Include(x => x.CarUser).FirstOrDefaultAsync(x => x.Id.Equals(id));
+
+            if(data == null)
+            {
+                throw new DataNotFoundException();
+            }
+
+            return data;
+            //return this.GetDataById(id);
         }
 
         public Task UpdateCar(int id, Car Car)
